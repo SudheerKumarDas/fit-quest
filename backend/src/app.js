@@ -1,11 +1,11 @@
 import express from "express"
 
+import usersRoutes from "./routes/users.routes.js";
+
 const app = express();
 
 app.use(express.json());
 
-app.get("/",(req,res)=>{
-    res.send("fit quest app");
-})
+app.use("/api/users",usersRoutes);
 
 export default app;
