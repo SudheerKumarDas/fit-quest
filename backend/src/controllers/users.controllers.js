@@ -1,4 +1,4 @@
-export const userRegister = async (req,res) => {
+export const usersRegister = async (req,res) => {
     try {
         const {username, email} = req.body;
     } catch (error) {
