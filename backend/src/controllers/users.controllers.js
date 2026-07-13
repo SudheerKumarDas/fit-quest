@@ -1,6 +1,6 @@
 export const usersRegister = async (req,res) => {
     try {
-        const {username, email} = req.body;
+        const { username, email, password } = req.body;
     } catch (error) {
         console.error("Error in user register ",error);
         res.status(500).json({
