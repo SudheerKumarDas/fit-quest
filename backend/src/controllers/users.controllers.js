@@ -79,3 +79,39 @@ export const usersLogin = async (req, res) => {
     });
   }
 };
+
+export const usersInfo = async (req,res) => {
+  try {
+    const token = req.cookies.token;
+    if(!token){
+      return res.status(400).json({
+        message:"please login first"
+      })
+    }
+    const decoded = jwt.verify(token,process.env.JWT_SECRET);
+    if(!decoded){
+      return res.status(403).json({
+        message:"please provide valid token"
+      })
+    }
+    const userId = decoded.userId;
+    const user = await User.findById(userId);
+    if(!user){
+      return res.status(404).json({
+        message:"Not valid user"
+      })
+    }
+    res.status(200).json({
+      message:"User dashboard",
+      user:{
+        username:user.username,
+        email:user.email
+      }
+    })
+  } catch (error) {
+    console.error("Error getting user ",error);
+    res.status(500).json({
+      message:"Internal server error"
+    })
+  }
+}
